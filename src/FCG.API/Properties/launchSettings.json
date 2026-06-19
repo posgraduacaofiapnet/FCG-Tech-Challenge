@@ -1,0 +1,33 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:4414",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "chave_secreta": "fgc_tech_challenge",
+        "Admin_Password": "Adm!n123",
+        "Jwt_Key": "zR8pW5vB9yX2mN4qA7L1jK9sT6uE3hG0fD5cX8vB2nN1mQ4wZ7xR0tY3uI6pP9oL",
+        "Jwt_Issuer": "FCG.API",
+        "Jwt_Audience": "FCG.API"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:2414;http://localhost:1414",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "chave_secreta": "fgc_tech_challenge",
+        "Admin_Password": "Adm!n123",
+        "Jwt_Key": "zR8pW5vB9yX2mN4qA7L1jK9sT6uE3hG0fD5cX8vB2nN1mQ4wZ7xR0tY3uI6pP9oL",
+        "Jwt_Issuer": "FCG.API",
+        "Jwt_Audience": "FCG.API"
+      }
+    }
+  }
+}
