@@ -1,4 +1,113 @@
-# FCG (FIAP Cloud Games)
+# FCG (FIAP Cloud Games) - Fase 2 Microsservicos
+
+Esta entrega adiciona uma arquitetura de microsservicos orientada a eventos para atender o Tech Challenge da Fase 2. O monolito original foi preservado em `src/` e a nova arquitetura foi adicionada em `services/`, pronta para ser separada em repositorios proprios.
+
+## Arquitetura da Fase 2
+
+- `services/UsersAPI`: cadastro, login, JWT Bearer e publicacao de `UserCreatedEvent`.
+- `services/CatalogAPI`: catalogo de jogos, inicio de compra, biblioteca e consumo de `PaymentProcessedEvent`.
+- `services/PaymentsAPI`: consumo de `OrderPlacedEvent`, simulacao de pagamento e publicacao de `PaymentProcessedEvent`.
+- `services/NotificationsAPI`: consumo de eventos e simulacao de e-mails via logs.
+- `contracts/FCG.Contracts`: contratos compartilhados dos eventos.
+- `k8s/`: manifests de Kubernetes com Deployments, Services, ConfigMap e Secret.
+
+Tecnologias mantidas/alinhadas ao monolito: .NET 10, Entity Framework Core 10, SQL Server, JWT Bearer, FluentValidation, Swagger/OpenAPI, xUnit, FluentAssertions e Docker Compose. A Fase 2 tambem usa RabbitMQ com MassTransit para mensageria.
+
+## Executando com Docker Compose
+
+Na raiz do repositorio:
+
+```bash
+docker compose up --build
+```
+
+Servicos expostos:
+
+- UsersAPI: `http://localhost:5101/swagger`
+- CatalogAPI: `http://localhost:5102/swagger`
+- PaymentsAPI: `http://localhost:5103/swagger`
+- NotificationsAPI: `http://localhost:5104/swagger`
+- RabbitMQ Management: `http://localhost:15672` (`guest` / `guest`)
+- SQL Server: `localhost,1433`
+
+## Fluxo de Cadastro
+
+1. Chame `POST http://localhost:5101/api/auth/register`.
+2. O UsersAPI cria o usuario no SQL Server.
+3. O UsersAPI publica `UserCreatedEvent`.
+4. O NotificationsAPI consome o evento e registra no console o envio do e-mail de boas-vindas.
+
+Exemplo:
+
+```json
+{
+  "name": "User",
+  "email": "user@email.com",
+  "password": "Senha@123"
+}
+```
+
+## Fluxo de Compra
+
+1. Crie um jogo em `POST http://localhost:5102/api/games`.
+2. Solicite a compra em `POST http://localhost:5102/api/library/purchase`.
+3. O CatalogAPI publica `OrderPlacedEvent`.
+4. O PaymentsAPI consome o pedido e publica `PaymentProcessedEvent` com status `Approved`.
+5. O CatalogAPI consome o pagamento aprovado e adiciona o jogo a biblioteca.
+6. O NotificationsAPI consome o pagamento aprovado e registra no console o e-mail de confirmacao.
+
+Exemplo de compra:
+
+```json
+{
+  "userId": "GUID_DO_USUARIO",
+  "gameId": "GUID_DO_JOGO"
+}
+```
+
+Consulte a biblioteca:
+
+```http
+GET http://localhost:5102/api/library/{userId}
+```
+
+## Kubernetes Local
+
+Construa as imagens localmente com os nomes usados nos manifests:
+
+```bash
+docker build -t fcg-users-api:latest -f services/UsersAPI/Dockerfile .
+docker build -t fcg-catalog-api:latest -f services/CatalogAPI/Dockerfile .
+docker build -t fcg-payments-api:latest -f services/PaymentsAPI/Dockerfile .
+docker build -t fcg-notifications-api:latest -f services/NotificationsAPI/Dockerfile .
+```
+
+Depois aplique os manifests:
+
+```bash
+kubectl apply -f k8s
+kubectl get pods
+kubectl get services
+```
+
+Os manifests usam:
+
+- `Deployment` para todos os workloads.
+- `Service` para comunicacao interna.
+- `ConfigMap` para configuracoes nao sensiveis.
+- `Secret` para connection strings, senha do SQL Server e chave JWT.
+
+## Testes
+
+```bash
+dotnet test
+```
+
+Os testes antigos do monolito foram mantidos e os novos testes cobrem validacao de senha, publicacao de eventos, criacao de jogo, processamento de pagamento e notificacoes.
+
+---
+
+# FCG (FIAP Cloud Games) - Monolito Original
 
 API REST para cadastro de usuarios, autenticacao, catalogo de jogos, fluxo de compra e biblioteca de jogos adquiridos.
 

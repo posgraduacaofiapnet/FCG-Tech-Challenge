@@ -1,4 +1,13 @@
 <Solution>
+  <Folder Name="/contracts/">
+    <Project Path="contracts/FCG.Contracts/FCG.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/services/">
+    <Project Path="services/CatalogAPI/CatalogAPI.csproj" />
+    <Project Path="services/NotificationsAPI/NotificationsAPI.csproj" />
+    <Project Path="services/PaymentsAPI/PaymentsAPI.csproj" />
+    <Project Path="services/UsersAPI/UsersAPI.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/FCG.API/FCG.API.csproj" />
     <Project Path="src/FCG.Application/FCG.Application.csproj" />
@@ -6,6 +15,7 @@
     <Project Path="src/FCG.Infrastructure/FCG.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/test/">
+    <Project Path="test/FCG.Microservices.Tests/FCG.Microservices.Tests.csproj" />
     <Project Path="test/FCG.Test/FCG.Test.csproj" />
   </Folder>
 </Solution>
