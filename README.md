@@ -11,6 +11,14 @@ Esta entrega adiciona uma arquitetura de microsservicos orientada a eventos para
 - `contracts/FCG.Contracts`: contratos compartilhados dos eventos.
 - `k8s/`: manifests de Kubernetes com Deployments, Services, ConfigMap e Secret.
 
+## Repositorios da Fase 2
+
+- Orquestracao e referencia completa: https://github.com/posgraduacaofiapnet/FCG-Tech-Challenge
+- UsersAPI: https://github.com/posgraduacaofiapnet/FCG-UsersAPI
+- CatalogAPI: https://github.com/posgraduacaofiapnet/FCG-CatalogAPI
+- PaymentsAPI: https://github.com/posgraduacaofiapnet/FCG-PaymentsAPI
+- NotificationsAPI: https://github.com/posgraduacaofiapnet/FCG-NotificationsAPI
+
 Tecnologias mantidas/alinhadas ao monolito: .NET 10, Entity Framework Core 10, SQL Server, JWT Bearer, FluentValidation, Swagger/OpenAPI, xUnit, FluentAssertions e Docker Compose. A Fase 2 tambem usa RabbitMQ com MassTransit para mensageria.
 
 ## Executando com Docker Compose
