@@ -13,7 +13,8 @@ Esta entrega adiciona uma arquitetura de microsservicos orientada a eventos para
 
 ## Repositorios da Fase 2
 
-- Orquestracao e referencia completa: https://github.com/posgraduacaofiapnet/FCG-Tech-Challenge
+- Referencia completa no repositorio original: https://github.com/posgraduacaofiapnet/FCG-Tech-Challenge
+- Orquestracao Docker/Kubernetes: https://github.com/posgraduacaofiapnet/FCG-Orchestration
 - UsersAPI: https://github.com/posgraduacaofiapnet/FCG-UsersAPI
 - CatalogAPI: https://github.com/posgraduacaofiapnet/FCG-CatalogAPI
 - PaymentsAPI: https://github.com/posgraduacaofiapnet/FCG-PaymentsAPI
